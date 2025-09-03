@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-shield-alt me-2"></i>Admin Dashboard
+    </h1>
+    <div class="text-white">
+        <i class="fas fa-calendar me-2"></i>{{ 'now'|date:"F d, Y" }}
+    </div>
+</div>
+
+<!-- Quick Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card bg-dark text-white border-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Total Employees</h5>
+                        <h2 class="text-warning">{{ total_employees }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-3x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-dark text-white border-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Today's Attendance</h5>
+                        <h2 class="text-info">{{ total_attendance_today }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clock fa-3x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-dark text-white border-danger">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Pending Leaves</h5>
+                        <h2 class="text-danger">{{ pending_leaves }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-calendar-times fa-3x text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'employee_add' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-user-plus d-block mb-2"></i>
+                            Add Employee
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'employee_list' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-list d-block mb-2"></i>
+                            View All Employees
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-money-bill d-block mb-2"></i>
+                            Generate Payroll
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'settings' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-cog d-block mb-2"></i>
+                            System Settings
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Management Sections -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-users me-2"></i>Employee Management</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'employee_list' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Manage Employees</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Department Structure</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Role Assignments</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Performance Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Security & Compliance</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'security_logs' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Security Audit Logs</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Access Control</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>System Backups</a></li>
+                    <li><a href="{% url 'admin_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Compliance Reports</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

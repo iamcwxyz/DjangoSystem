@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Employee - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-user-edit me-2"></i>Edit Employee: {{ employee.name }}
+    </h1>
+    <a href="{% url 'employee_list' %}" class="btn btn-outline-light">
+        <i class="fas fa-arrow-left me-2"></i>Back to List
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Employee Information - ID: {{ employee.employee_id }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Current Profile Picture -->
+                    <div class="text-center mb-4">
+                        {% if employee.profile_picture %}
+                            <img src="{{ employee.profile_picture.url }}" 
+                                 alt="{{ employee.name }}" 
+                                 class="rounded-circle border border-primary" 
+                                 style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto border border-primary" 
+                                 style="width: 100px; height: 100px;">
+                                <i class="fas fa-user fa-2x text-white"></i>
+                            </div>
+                        {% endif %}
+                        <div class="mt-2">
+                            <small class="text-muted">Current Profile Picture</small>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ employee.name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ employee.email|default:'' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ employee.phone|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <input type="text" class="form-control" id="department" name="department" value="{{ employee.department|default:'' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="position" name="position" value="{{ employee.position|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="salary_rate" class="form-label">Salary Rate</label>
+                            <input type="number" class="form-control" id="salary_rate" name="salary_rate" value="{{ employee.salary_rate }}" step="0.01" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="role" class="form-label">Role *</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="Employee" {% if employee.role == 'Employee' %}selected{% endif %}>Employee</option>
+                                <option value="HR" {% if employee.role == 'HR' %}selected{% endif %}>Human Resources</option>
+                                <option value="Admin" {% if employee.role == 'Admin' %}selected{% endif %}>Administrator</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label">Status *</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Active" {% if employee.status == 'Active' %}selected{% endif %}>Active</option>
+                                <option value="Inactive" {% if employee.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+                                <option value="Suspended" {% if employee.status == 'Suspended' %}selected{% endif %}>Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="profile_picture" class="form-label">Update Profile Picture</label>
+                        <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
+                        <div class="form-text text-muted">Leave empty to keep current picture. Supported formats: JPG, PNG, GIF (Max 5MB)</div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-save me-2"></i>Update Employee
+                        </button>
+                        <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

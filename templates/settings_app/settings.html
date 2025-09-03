@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}System Settings - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-cog me-2"></i>System Settings
+    </h1>
+    <div class="text-white">
+        <i class="fas fa-shield-alt me-2"></i>Administrator Access
+    </div>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <!-- General Settings -->
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-building me-2"></i>General Settings</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="company_name" class="form-label">Company/Agency Name</label>
+                    <input type="text" class="form-control" id="company_name" name="company_name" 
+                           value="{{ settings.company_name }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="session_timeout" class="form-label">Session Timeout (hours)</label>
+                    <input type="number" class="form-control" id="session_timeout" name="session_timeout" 
+                           value="{{ settings.session_timeout }}" min="1" max="24">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HR Settings -->
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-users me-2"></i>HR & Payroll Settings</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="max_leave_days" class="form-label">Maximum Annual Leave Days</label>
+                    <input type="number" class="form-control" id="max_leave_days" name="max_leave_days" 
+                           value="{{ settings.max_leave_days }}" min="0">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="working_hours_per_day" class="form-label">Standard Working Hours per Day</label>
+                    <input type="number" class="form-control" id="working_hours_per_day" name="working_hours_per_day" 
+                           value="{{ settings.working_hours_per_day }}" min="1" max="24">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="overtime_rate" class="form-label">Overtime Rate Multiplier</label>
+                    <input type="number" class="form-control" id="overtime_rate" name="overtime_rate" 
+                           value="{{ settings.overtime_rate }}" step="0.1" min="1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Settings -->
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-server me-2"></i>System Settings</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="backup_frequency" class="form-label">Backup Frequency</label>
+                    <select class="form-select" id="backup_frequency" name="backup_frequency">
+                        <option value="daily" {% if settings.backup_frequency == 'daily' %}selected{% endif %}>Daily</option>
+                        <option value="weekly" {% if settings.backup_frequency == 'weekly' %}selected{% endif %}>Weekly</option>
+                        <option value="monthly" {% if settings.backup_frequency == 'monthly' %}selected{% endif %}>Monthly</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-check form-switch mt-4">
+                        <input class="form-check-input" type="checkbox" id="enable_notifications" name="enable_notifications" 
+                               {% if settings.enable_notifications == 'true' %}checked{% endif %} value="true">
+                        <label class="form-check-label" for="enable_notifications">
+                            Enable System Notifications
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Information -->
+    <div class="card bg-primary text-white mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Security Information</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-shield-alt fa-2x mb-2"></i>
+                    <h6>Data Protection</h6>
+                    <p class="small mb-0">All data is encrypted and securely stored</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-lock fa-2x mb-2"></i>
+                    <h6>Access Control</h6>
+                    <p class="small mb-0">Role-based permissions ensure data security</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-history fa-2x mb-2"></i>
+                    <h6>Audit Trail</h6>
+                    <p class="small mb-0">All activities are logged for compliance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg me-2">
+            <i class="fas fa-save me-2"></i>Save Settings
+        </button>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}HR Dashboard - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-users me-2"></i>HR Dashboard
+    </h1>
+    <div class="text-white">
+        <i class="fas fa-calendar me-2"></i>{{ 'now'|date:"F d, Y" }}
+    </div>
+</div>
+
+<!-- Quick Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Active Employees</h6>
+                        <h3 class="text-success">25</h3>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-user-check fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Pending Applications</h6>
+                        <h3 class="text-warning">8</h3>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-file-alt fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Leave Requests</h6>
+                        <h3 class="text-info">12</h3>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-calendar-times fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">This Month</h6>
+                        <h3 class="text-primary">Dec</h3>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-calendar fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'hr_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-user-plus d-block mb-2"></i>
+                            Add New Employee
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'manage_applications' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-file-contract d-block mb-2"></i>
+                            Review Applications
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'hr_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-calendar-check d-block mb-2"></i>
+                            Approve Leaves
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'hr_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-chart-line d-block mb-2"></i>
+                            Generate Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HR Management Sections -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-users me-2"></i>Employee Management</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>View All Employees</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Employee Records</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Department Assignments</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Performance Tracking</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Recruitment</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'manage_applications' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Job Applications</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Interview Scheduling</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Background Checks</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Offer Management</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-calendar me-2"></i>Attendance & Leave</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Attendance Reports</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Leave Requests</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Holiday Calendar</a></li>
+                    <li><a href="{% url 'kiosk_punch' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Time Tracking</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-money-bill me-2"></i>Payroll & Benefits</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Payroll Processing</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Salary Management</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Benefits Administration</a></li>
+                    <li><a href="{% url 'hr_dashboard' %}" class="text-light text-decoration-none"><i class="fas fa-angle-right me-2"></i>Tax Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

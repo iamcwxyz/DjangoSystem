@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Application Submitted - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-white">
+                <div class="card-header text-center">
+                    <div class="government-seal mx-auto mb-3"></div>
+                    <h2>APPLICATION SUBMITTED</h2>
+                </div>
+                
+                <div class="card-body text-center">
+                    <div class="alert alert-success">
+                        <h4>✅ Your application has been successfully submitted!</h4>
+                    </div>
+                    
+                    <h5>Application ID: <span class="text-warning">{{ application_id }}</span></h5>
+                    <p class="lead">Please save this Application ID for your records.</p>
+                    
+                    <hr class="my-4">
+                    
+                    <h6>What's Next?</h6>
+                    <ul class="list-unstyled">
+                        <li>✓ Our HR team will review your application</li>
+                        <li>✓ You will be contacted if you meet our requirements</li>
+                        <li>✓ You can check your application status anytime</li>
+                    </ul>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'check_status' %}" class="btn btn-light me-3">Check Status</a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-light">Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Application - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card bg-dark text-white">
+                <div class="card-header text-center">
+                    <div class="government-seal mx-auto mb-3"></div>
+                    <h2>FEDERAL AGENCY</h2>
+                    <h4>Employment Application</h4>
+                </div>
+                
+                <div class="card-body">
+                    <form method="post" action="{% url 'submit_application' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="full_name" class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="full_name" name="full_name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="position" class="form-label">Position Applied For *</label>
+                                <select class="form-control" id="position" name="position" required>
+                                    <option value="">Select Position</option>
+                                    <option value="Administrative Assistant">Administrative Assistant</option>
+                                    <option value="Analyst">Analyst</option>
+                                    <option value="Coordinator">Coordinator</option>
+                                    <option value="Specialist">Specialist</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Director">Director</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address *</label>
+                            <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resume" class="form-label">Resume/CV</label>
+                            <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx,.txt">
+                            <small class="text-muted">Accepted formats: PDF, DOC, DOCX, TXT (Max 5MB)</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="work_experience" class="form-label">Work Experience *</label>
+                            <textarea class="form-control" id="work_experience" name="work_experience" rows="4" 
+                                      placeholder="Describe your relevant work experience, including job titles, companies, and dates of employment..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="education" class="form-label">Education *</label>
+                            <textarea class="form-control" id="education" name="education" rows="3" 
+                                      placeholder="List your educational background, including degrees, institutions, and graduation dates..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="skills" class="form-label">Skills & Qualifications *</label>
+                            <textarea class="form-control" id="skills" name="skills" rows="3" 
+                                      placeholder="List relevant skills, certifications, and qualifications..." required></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-light btn-lg px-5">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card bg-dark text-white">
+            <div class="card-body text-center">
+                <h5 class="card-title">Check Application Status</h5>
+                <p class="card-text">Already applied? Check your application status here.</p>
+                <a href="{% url 'check_status' %}" class="btn btn-light">Check Status</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card bg-dark text-white">
+            <div class="card-body text-center">
+                <h5 class="card-title">Application Process</h5>
+                <p class="card-text">Learn more about our hiring process and timeline.</p>
+                <a href="#" class="btn btn-light">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

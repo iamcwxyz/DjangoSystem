@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Employee - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-user-times me-2"></i>Delete Employee
+    </h1>
+    <a href="{% url 'employee_list' %}" class="btn btn-outline-light">
+        <i class="fas fa-arrow-left me-2"></i>Back to List
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-dark text-white border-danger">
+            <div class="card-header bg-danger">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Deletion</h5>
+            </div>
+            <div class="card-body">
+                <!-- Employee Info -->
+                <div class="text-center mb-4">
+                    {% if employee.profile_picture %}
+                        <img src="{{ employee.profile_picture.url }}" 
+                             alt="{{ employee.name }}" 
+                             class="rounded-circle border border-danger" 
+                             style="width: 80px; height: 80px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto border border-danger" 
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-user fa-2x text-white"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="alert alert-danger" role="alert">
+                    <h6 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>WARNING</h6>
+                    <p>You are about to permanently delete the following employee record:</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6"><strong>Employee ID:</strong></div>
+                        <div class="col-6">{{ employee.employee_id }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Name:</strong></div>
+                        <div class="col-6">{{ employee.name }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Department:</strong></div>
+                        <div class="col-6">{{ employee.department|default:"Not Set" }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Position:</strong></div>
+                        <div class="col-6">{{ employee.position|default:"Not Set" }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Role:</strong></div>
+                        <div class="col-6">{{ employee.get_role_display }}</div>
+                    </div>
+                    <hr>
+                    <p class="mb-0">
+                        <strong>This action cannot be undone!</strong> All associated data including attendance records, 
+                        leave requests, and payroll information will also be permanently deleted.
+                    </p>
+                </div>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="fas fa-trash me-2"></i>Yes, Delete Employee
+                        </button>
+                        <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

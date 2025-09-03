@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Time Clock Kiosk{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card bg-dark text-white">
+                <div class="card-header text-center">
+                    <div class="government-seal mx-auto mb-3"></div>
+                    <h2 class="mb-0">TIME CLOCK KIOSK</h2>
+                    <h5>Federal Agency Employee Time Tracking</h5>
+                </div>
+                
+                <div class="card-body">
+                    {% if message %}
+                        <div class="alert alert-{{ message_type }} alert-lg text-center">
+                            <h4>{{ message }}</h4>
+                            {% if employee %}
+                                <hr>
+                                <h5>{{ employee.name }} ({{ employee.employee_id }})</h5>
+                                <p class="mb-0">{{ employee.department }} - {{ employee.position }}</p>
+                                {% if time_in %}
+                                    <p class="mb-0"><strong>Time In:</strong> {{ time_in }}</p>
+                                {% endif %}
+                                {% if time_out %}
+                                    <p class="mb-0"><strong>Time Out:</strong> {{ time_out }}</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="employee_id" class="form-label h5">Enter Your Employee ID</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg text-center" 
+                                   id="employee_id" 
+                                   name="employee_id" 
+                                   placeholder="EMP001" 
+                                   style="font-size: 2rem; padding: 1rem;" 
+                                   required 
+                                   autofocus>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-light btn-lg px-5 py-3">
+                            <i class="fas fa-clock"></i> PUNCH TIME
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <small class="text-muted">
+                            Current Time: <span id="current-time"></span><br>
+                            Today: {{ today|date:"F d, Y" }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString();
+        document.getElementById('current-time').textContent = timeString;
+    }
+    
+    // Update time every second
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call
+    
+    // Auto-clear the form after successful punch
+    {% if message and message_type == 'success' %}
+        setTimeout(function() {
+            document.getElementById('employee_id').value = '';
+            document.getElementById('employee_id').focus();
+        }, 3000);
+    {% endif %}
+</script>
+{% endblock %}

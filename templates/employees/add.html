@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Employee - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-user-plus me-2"></i>Add New Employee
+    </h1>
+    <a href="{% url 'employee_list' %}" class="btn btn-outline-light">
+        <i class="fas fa-arrow-left me-2"></i>Back to List
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Employee Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">Username *</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <input type="text" class="form-control" id="department" name="department">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="position" name="position">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="salary_rate" class="form-label">Salary Rate</label>
+                            <input type="number" class="form-control" id="salary_rate" name="salary_rate" step="0.01" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="role" class="form-label">Role *</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="Employee">Employee</option>
+                                <option value="HR">Human Resources</option>
+                                <option value="Admin">Administrator</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="profile_picture" class="form-label">Profile Picture</label>
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
+                            <div class="form-text text-muted">Supported formats: JPG, PNG, GIF (Max 5MB)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-save me-2"></i>Create Employee
+                        </button>
+                        <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Preview profile picture
+document.getElementById('profile_picture').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // You can add preview functionality here if needed
+            console.log('Image selected:', file.name);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %}

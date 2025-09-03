@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron py-5 mb-5" style="background: linear-gradient(135deg, var(--gov-black) 0%, var(--gov-gray-dark) 100%); border-bottom: 3px solid var(--gov-red);">
+    <div class="container text-center">
+        <div class="government-seal mx-auto mb-4" style="width: 100px; height: 100px;"></div>
+        <h1 class="display-4 text-white mb-3">Federal Agency</h1>
+        <h2 class="text-white mb-4">Payroll Management System</h2>
+        <p class="lead text-white mb-4">Secure, Efficient, Government-Grade Employee Management</p>
+        {% if not user.is_authenticated %}
+            <a class="btn btn-light btn-lg mt-4" href="{% url 'login' %}">
+                <i class="fas fa-sign-in-alt me-2"></i>Employee Login
+            </a>
+        {% else %}
+            <div class="mt-4">
+                <h4 class="text-white mb-3">Welcome back, {{ user.name }}!</h4>
+                <a class="btn btn-light btn-lg me-3" href="{% if user.role == 'Admin' %}{% url 'admin_dashboard' %}{% elif user.role == 'HR' %}{% url 'hr_dashboard' %}{% else %}{% url 'employee_dashboard' %}{% endif %}">
+                    <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="fas fa-user-tie fa-3x mb-3 text-light"></i>
+                    <h5 class="card-title">Employee Portal</h5>
+                    <p class="card-text flex-grow-1">Access your dashboard, attendance, and leave requests</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'employee_dashboard' %}" class="btn btn-light mt-auto">Access Portal</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-light mt-auto">Login Required</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="fas fa-clock fa-3x mb-3 text-light"></i>
+                    <h5 class="card-title">Time Clock</h5>
+                    <p class="card-text flex-grow-1">Clock in and out using the kiosk system</p>
+                    <a href="{% url 'kiosk_punch' %}" class="btn btn-light mt-auto">Access Kiosk</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <i class="fas fa-briefcase fa-3x mb-3 text-light"></i>
+                    <h5 class="card-title">Career Opportunities</h5>
+                    <p class="card-text flex-grow-1">Apply for positions within our organization</p>
+                    <a href="{% url 'apply' %}" class="btn btn-light mt-auto">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body text-center">
+                    <i class="fas fa-comments fa-3x mb-3 text-light"></i>
+                    <h5 class="card-title">Communication Hub</h5>
+                    <p class="card-text">Connect with colleagues through our secure messaging system</p>
+                    <a href="{% url 'chat_dashboard' %}" class="btn btn-light">Open Chat</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-bar fa-3x mb-3 text-light"></i>
+                    <h5 class="card-title">Reports & Analytics</h5>
+                    <p class="card-text">View detailed reports and performance analytics</p>
+                    <a href="#" class="btn btn-light">View Reports</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

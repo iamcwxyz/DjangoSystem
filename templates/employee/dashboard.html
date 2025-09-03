@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Dashboard - Federal Agency{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">
+        <i class="fas fa-user me-2"></i>Employee Dashboard
+    </h1>
+    <div class="text-white">
+        <i class="fas fa-calendar me-2"></i>{{ 'now'|date:"F d, Y" }}
+    </div>
+</div>
+
+<!-- Welcome Card -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-dark text-white border-primary">
+            <div class="card-body">
+                <h4 class="card-title">Welcome back, {{ user.name }}!</h4>
+                <p class="card-text">{{ user.department }} - {{ user.position }} | Employee ID: {{ user.employee_id }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-success">
+            <div class="card-body text-center">
+                <i class="fas fa-clock fa-2x text-success mb-2"></i>
+                <h6 class="card-title">Attendance</h6>
+                <h4 class="text-success">95%</h4>
+                <small class="text-muted">This Month</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-warning">
+            <div class="card-body text-center">
+                <i class="fas fa-calendar-times fa-2x text-warning mb-2"></i>
+                <h6 class="card-title">Leave Balance</h6>
+                <h4 class="text-warning">15</h4>
+                <small class="text-muted">Days Available</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-info">
+            <div class="card-body text-center">
+                <i class="fas fa-calendar-check fa-2x text-info mb-2"></i>
+                <h6 class="card-title">Hours Worked</h6>
+                <h4 class="text-info">160</h4>
+                <small class="text-muted">This Month</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-dark text-white border-primary">
+            <div class="card-body text-center">
+                <i class="fas fa-star fa-2x text-primary mb-2"></i>
+                <h6 class="card-title">Performance</h6>
+                <h4 class="text-primary">A+</h4>
+                <small class="text-muted">Current Rating</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'kiosk_punch' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-clock d-block mb-2"></i>
+                            Punch Time
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'employee_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-calendar-plus d-block mb-2"></i>
+                            Request Leave
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'employee_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-chart-line d-block mb-2"></i>
+                            View Payslip
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'employee_dashboard' %}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-user-edit d-block mb-2"></i>
+                            Update Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Employee Information Sections -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent Attendance</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dec 03, 2025</td>
+                                <td>08:00 AM</td>
+                                <td>05:00 PM</td>
+                                <td>8.0h</td>
+                            </tr>
+                            <tr>
+                                <td>Dec 02, 2025</td>
+                                <td>08:15 AM</td>
+                                <td>05:15 PM</td>
+                                <td>8.0h</td>
+                            </tr>
+                            <tr>
+                                <td>Dec 01, 2025</td>
+                                <td>08:00 AM</td>
+                                <td>05:00 PM</td>
+                                <td>8.0h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'kiosk_punch' %}" class="btn btn-sm btn-outline-light">View All Attendance</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-calendar-times me-2"></i>Leave Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Annual Leave</span>
+                        <span class="text-success">12 days left</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-success" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Sick Leave</span>
+                        <span class="text-warning">3 days left</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-warning" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Personal Leave</span>
+                        <span class="text-info">0 days left</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-info" style="width: 0%"></div>
+                    </div>
+                </div>
+                <a href="{% url 'employee_dashboard' %}" class="btn btn-sm btn-outline-light">Request Leave</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-12 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bell me-2"></i>Recent Notifications</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Your leave request for Dec 15-16 has been approved
+                        <small class="text-muted d-block">2 hours ago</small>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        Payroll for November has been processed
+                        <small class="text-muted d-block">1 day ago</small>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-calendar text-warning me-2"></i>
+                        Reminder: Performance review scheduled for Dec 10
+                        <small class="text-muted d-block">3 days ago</small>
+                    </li>
+                </ul>
+                <a href="{% url 'employee_dashboard' %}" class="btn btn-sm btn-outline-light">View All Notifications</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
